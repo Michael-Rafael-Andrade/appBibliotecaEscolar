@@ -1,0 +1,29 @@
+<h1>Cadastrar Novo Livro</h1>
+
+<!-- Formulário que envia os dados via POST para a rota /livros/cadastrar -->
+<form action="/livros/cadastrar" method="POST">
+    <div>
+        <label for="id">ID do Exemplar:</label><br>
+        <input type="number" id="id" name="id" required>
+    </div>
+
+    <div>
+        <label for="titulo">Título:</label><br>
+        <input type="text" id="titulo" name="titulo" required>
+    </div>
+
+    <div>
+        <label for="autor">Autor:</label><br>
+        <input type="text" id="autor" name="autor" required>
+    </div>
+
+    <div>
+        <label for="isbn">ISBN:</label><br>
+        <input type="text" id="isbn" name="isbn" required>
+    </div>
+
+    <br>
+    <button type="submit">Salvar Livro</button>
+    <a href="/livros">Cancelar</a>
+    <a href="/">Voltar</a>
+</form>

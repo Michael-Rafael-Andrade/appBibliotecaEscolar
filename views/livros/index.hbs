@@ -1,0 +1,39 @@
+<!-- Exibe o título dinâmico enviado pelo Controller -->
+<h1>{{titulo}}</h1>
+
+<!-- Tabela para exibição dos dados do acervo -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Início do laço de repetição sobre o array 'livros' -->
+        {{#each livros}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.titulo}}</td>
+                <td>{{this.autor}}</td>
+                <td>{{this.isbn}}</td>
+                <td>
+                    <!-- Condicional para verificar disponibilidade -->
+                    {{#if this.disponivel}}
+                        <span style="color: green;">Disponível</span>
+                    {{else}}
+                        <span style="color: red;">Emprestado</span>
+                    {{/if}}
+                </td>
+            </tr>
+        {{else}}
+        <!-- Bloco executado caso o array 'livros' esteja vazio -->
+        <tr>
+            <td colspan="5">Nenhum livro cadastrado no acervo.</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

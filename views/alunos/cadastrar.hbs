@@ -1,0 +1,28 @@
+<h1>Cadastrar Novo Aluno</h1>
+
+<form action="/alunos/cadastrar" method="POST">
+    <div>
+        <label for="id">ID:</label><br>
+        <input type="number" id="id" name="id" required>
+    </div>
+
+    <div>
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required>
+    </div>
+
+    <div>
+        <label for="matricula">Matrícula:</label><br>
+        <input type="text" id="matricula" name="matricula" required>
+    </div>
+
+    <div>
+        <label for="turma">Turma</label><br>
+        <input type="text" id="turma" name="turma" required>
+    </div>
+
+    <br>
+    <button type="submit">Salvar Aluno</button>
+    <a href="/alunos">Cancelar</a>
+    <a href="/">Voltar</a>
+</form>

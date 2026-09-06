@@ -1,0 +1,45 @@
+<h1>{{titulo}}</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Aluno</th>
+            <th>ID Livro</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each emprestimos}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.alunoId}}</td>
+            <td>{{this.livroId}}</td>
+            <td>{{this.dataEmprestimo}}</td>
+            <td>
+                {{#if this.ativo}}
+                <span style="color: green;">Ativo</span>
+                {{else}}
+                <span style="color: gray;">Finalizado</span>
+                {{/if}}
+            </td>
+            <td>
+                {{#if this.ativo}}
+                <form action="/emprestimos/devolver" method="POST" style="display:inline;">
+                    <input type="hidden" name="id" value="{{this.id}}">
+                    <button type="submit">Devolver</button>
+                </form>
+                {{else}}
+                -
+                {{/if}}
+            </td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="6">Nenhum empréstimo registrado.</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

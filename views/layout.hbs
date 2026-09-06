@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{title}} - Biblioteca Escolar</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+    <!-- Menu superior de Navegação -->
+    <header class="navbar">
+      <div class="logo">
+        <a href="/">appBiblioteca</a>
+      </div>
+      <nav class="nav-links">
+        <a href="/livros">Acervo</a>
+        <a href="/livros/cadastrar">Novo Livro</a>
+        <a href="/alunos">Alunos</a>
+        <a href="/alunos/cadastrar">Novo Aluno</a>
+        <a href="/emprestimos">Empréstimos</a>
+        <a href="/emprestimos/cadastrar">Novo Empréstimo</a>
+      </nav>
+    </header>
+
+    <!-- Conteúdo dinâmico das telas -->
+    <main class="container">
+      {{{body}}}
+    </main>
+  </body>
+</html>

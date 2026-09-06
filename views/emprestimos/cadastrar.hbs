@@ -1,0 +1,40 @@
+<h1>Novo Empréstimo</h1>
+
+<form action="/emprestimos/cadastrar" method="POST">
+  <div>
+    <label for="id">ID do Empréstimo:</label><br>
+    <input type="number" id="id" name="id" required>
+  </div>
+
+  <div>
+    <label for="alunoId">Aluno:</label><br>
+    <select id="alunoId" name="alunoId" required>
+      <option value="">Selecione um aluno...</option>
+      {{#each alunos}}
+        <option value="{{this.id}}">{{this.nome}} (Matrícula: {{this.matricula}})</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div>
+    <label for="livroId">Livro Disponível:</label><br>
+    <select id="livroId" name="livroId" required>
+      <option value="">Selecione um livro...</option>
+      {{#each livros}}
+        {{#if this.disponivel}}
+          <option value="{{this.id}}">{{this.titulo}} (ID: {{this.id}})</option>
+        {{/if}}
+      {{/each}}
+    </select>
+  </div>
+
+  <div>
+    <label for="dataEmprestimo">Data do Empréstimo:</label><br>
+    <input type="date" id="dataEmprestimo" name="dataEmprestimo" required>
+  </div>
+
+  <br>
+  <button type="submit">Registrar Empréstimo</button>
+  <a href="/emprestimos">Cancelar</a>
+  <a href="/">Voltar</a>
+</form>
