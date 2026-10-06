@@ -24,7 +24,53 @@ const alunoController = {
         const matricula = req.body.matricula;
         const turma = req.body.turma;
 
-        // Cria a nova instância do aluno
+        // Tratamneto seguro dos textos para evitar erro de .trim() em undefined
+        const nomeTexto = nome ? nome.trim() : '';
+        const matriculaTexto = matricula ? matricula.trim() : '';
+        const turmaTexto = turma ? turma.trim() : '';
+
+        // 1. Validação de campos vazios
+        if (!id || !nome.trim() || !matricula.trim() || !turma.trim()) {
+            return res.render('alunos/cadastrar', {
+                mensagemErro: 'Todos os campos são de preenchimento obrigatório.',
+                dadosPrevios: {
+                    id,
+                    nome,
+                    matricula,
+                    turma
+                }
+            });
+        }
+
+        // 2. Validação de ID duplicado
+        const idExiste = Aluno.buscarPorId(id);
+        if (idExiste) {
+            return res.render('alunos/cadastrar', {
+                mensagemErro: 'Já existe um aluno cadastrado com este ID.',
+                dadosPrevios: {
+                    id,
+                    nome,
+                    matricula,
+                    turma
+                }
+            });
+        }
+
+        // 3. Validação de Matrícula duplicada
+        const matriculaExiste = Aluno.buscarPorMatricula(matricula);
+        if (matriculaExiste) {
+            return res.render('alunos/cadastrar', {
+                mensagemErro: 'Esta matrícula já está cadastrada para outro aluno.',
+                dadosPrevios: {
+                    id,
+                    nome,
+                    matricula,
+                    turma
+                }
+            });
+        }
+
+        // Se passou por todas as validações, cria e salva o aluno
         const novoAluno = new Aluno(
             id,
             nome,
@@ -32,10 +78,10 @@ const alunoController = {
             turma
         );
 
-        // Salva o aluno na memória
+        // Salva o novo aluno no array em memória
         Aluno.salvar(novoAluno);
 
-        // Redireciona para a lista de alunos
+        // Redireciona para a listagem
         res.redirect('/alunos');
     }
 };

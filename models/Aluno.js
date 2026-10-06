@@ -20,6 +20,20 @@ class Aluno {
         alunosDB.push(aluno);
         return aluno;
     }
+
+    // Busca um aluno pelo ID
+    static buscarPorId(id){
+        const alunoEncontrado = alunosDB.find((a) => String(a.id) === String(id));
+        return alunoEncontrado;
+    }
+
+    // Busca um aluno pela Matrícula
+    static buscarPorMatricula(matricula){
+        const alunoEncontrado = alunosDB.find(
+            (a) => String(a.matricula).trim() === String(matricula).trim()
+        );
+        return alunoEncontrado;
+    }
 }
 
 // Exporta a classe para os outros arquivos
