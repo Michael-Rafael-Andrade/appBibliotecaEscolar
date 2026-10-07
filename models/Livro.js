@@ -29,6 +29,14 @@ class Livro {
         return livroEncontrado;
     }
 
+    // Busca um livro pelo ISBN
+    static buscarPorIsbn(isbn){
+        const livroEncontrado = livrosDB.find(
+            (l) => String(l.isbn).trim() === String(isbn).trim()
+        );
+        return livroEncontrado;
+    }
+
     // Altera a disponibilidade do livro
     static atualizarStatus(id, status) {
         const livro = Livro.buscarPorId(id);
