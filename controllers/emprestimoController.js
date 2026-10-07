@@ -33,7 +33,58 @@ const emprestimoController = {
         const livroId = req.body.livroId;
         const dataEmprestimo = req.body.dataEmprestimo;
 
-        // Instancia o novo empréstimo
+        // Busca as listas atualizadas caso seja necessário recarregar a view com erro
+        const todosLivros = Livro.listarTodos();
+        const todosAlunos = Aluno.listarTodos();
+
+        // 1. Validação de campos vazios
+        if(!id || !alunoId || !livroId || !dataEmprestimo){
+            return res.render('emprestimos/cadastrar', {
+                mensagemErro: 'Todos os campos são de preenchimento obrigatório.',
+                livros: todosLivros,
+                alunos: todosAlunos,
+                dadosPrevios: {
+                    id: id,
+                    alunoId: alunoId,
+                    livroId: livroId,
+                    dataEmprestimo: dataEmprestimo
+                }
+            });
+        }
+
+        // 2. Validação de ID de empréstimo duplicado
+        const idExiste = Emprestimo.buscarPorId(id);
+        if(idExiste){
+            return res.render('emprestimos/cadastrar', {
+                mensagemErro: 'Já existe um registro de empréstimo com este ID.',
+                livros: todosLivros,
+                alunos: todosAlunos,
+                dadosPrevios: {
+                    id: id,
+                    alunoId: alunoId,
+                    livroId: livroId,
+                    dataEmprestimo: dataEmprestimo
+                }
+            });
+        }
+
+        // 3. Validação de disponibilidade do livro no backend
+        const livroSelecionado = Livro.buscarPorId(livroId);
+        if(!livroSelecionado || !livroSelecionado.disponivel){
+            return res.render('emprestimos/cadastrar', {
+                mensagemErro: 'O livro selecionado não está disponível para empréstimo.',
+                livros: todosLivros,
+                alunos: todosAlunos,
+                dadosPrevios:{
+                    id:id,
+                    alunoId: alunoId,
+                    livroId: livroId,
+                    dataEmprestimo: dataEmprestimo
+                }
+            }); 
+        }
+
+        // Instancia o novo empréstimo se passar por todas as validações
         const novoEmprestimo = new Emprestimo(
             id,
             alunoId,

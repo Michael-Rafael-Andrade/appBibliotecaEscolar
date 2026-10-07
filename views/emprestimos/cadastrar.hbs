@@ -1,14 +1,20 @@
 <h1>Novo Empréstimo</h1>
 
+{{#if mensagemErro}}
+  <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+    <strong>Atenção:</strong> {{mensagemErro}}
+  </div>
+{{/if}}
+
 <form action="/emprestimos/cadastrar" method="POST">
   <div>
     <label for="id">ID do Empréstimo:</label><br>
-    <input type="number" id="id" name="id" required>
+    <input type="number" id="id" name="id" value="{{dadosPrevios.id}}">
   </div>
 
   <div>
     <label for="alunoId">Aluno:</label><br>
-    <select id="alunoId" name="alunoId" required>
+    <select id="alunoId" name="alunoId">
       <option value="">Selecione um aluno...</option>
       {{#each alunos}}
         <option value="{{this.id}}">{{this.nome}} (Matrícula: {{this.matricula}})</option>
@@ -30,7 +36,7 @@
 
   <div>
     <label for="dataEmprestimo">Data do Empréstimo:</label><br>
-    <input type="date" id="dataEmprestimo" name="dataEmprestimo" required>
+    <input type="date" id="dataEmprestimo" name="dataEmprestimo" value="{{dadosPrevios.dataEmprestimo}}">
   </div>
 
   <br>
