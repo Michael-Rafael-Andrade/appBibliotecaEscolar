@@ -1,0 +1,52 @@
+<!-- NOVO: Título principal da página de edição -->
+<h1>Editar Aluno</h1>
+
+<!-- NOVO: Bloco condicional para exibição de mensagens de aviso -->
+{{#if mensagemErro}}
+<!-- NOVO: Contentor estilizado com alerta visual em vermelho -->
+<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+    <!-- NOVO: Texto com destaque de atenção -->
+    ⚠️ <strong>Atenção:</strong> {{mensagemErro}}
+</div>
+{{/if}}
+
+<!-- NOVO: Formulário que envia o pedido POST com o ID do aluno -->
+<form action="/alunos/editar/{{aluno.id}}" method="POST">
+    <!-- NOVO: Div do campo ID -->
+    <div>
+        <!-- NOVO: Rótulo indicativo para o ID -->
+        <label for="id">ID (não editável):</label><br>
+        <!-- NOVO: Campo com o ID desativado para alteração -->
+        <input type="number" id="id" name="id" value="{{aluno.id}}" disabled>
+    </div>
+
+    <!-- NOVO: Div do campo Nome -->
+    <div>
+        <!-- NOVO: Rótulo do campo Nome -->
+        <label for="nome">Nome:</label><br>
+        <!-- NOVO: Campo de texto preenchido com o nome atual do aluno -->
+        <input type="text" id="nome" name="nome" value="{{aluno.nome}}">
+    </div>
+
+    <!-- NOVO: Div do campo Matrícula -->
+    <div>
+        <!-- NOVO: Rótulo do campo Matrícula -->
+        <label for="matricula">Matrícula:</label><br>
+        <!-- NOVO: Campo preenchido com a matrícula atual -->
+        <input type="text" id="matricula" name="matricula" value="{{aluno.matricula}}">
+    </div>
+
+    <!-- NOVO: Div do campo Turma -->
+    <div>
+        <!-- NOVO: Rótulo do campo Turma -->
+        <label for="turma">Turma:</label><br>
+        <!-- NOVO: Campo preenchido com a turma atual -->
+        <input type="text" id="turma" name="turma" value="{{aluno.turma}}">
+    </div>
+
+    <br>
+    <!-- NOVO: Botão para submeter o formulário de atualização -->
+    <button type="submit">Guardar Alterações</button>
+    <!-- NOVO: Link para cancelar a ação e voltar à listagem -->
+    <a href="/alunos">Cancelar</a>
+</form>

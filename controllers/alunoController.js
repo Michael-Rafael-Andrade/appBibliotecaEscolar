@@ -34,10 +34,10 @@ const alunoController = {
             return res.render('alunos/cadastrar', {
                 mensagemErro: 'Todos os campos são de preenchimento obrigatório.',
                 dadosPrevios: {
-                    id,
-                    nome,
-                    matricula,
-                    turma
+                    id: id,
+                    nome: nome,
+                    matricula: matricula,
+                    turma: turma,
                 }
             });
         }
@@ -48,10 +48,10 @@ const alunoController = {
             return res.render('alunos/cadastrar', {
                 mensagemErro: 'Já existe um aluno cadastrado com este ID.',
                 dadosPrevios: {
-                    id,
-                    nome,
-                    matricula,
-                    turma
+                    id: id,
+                    nome: nome,
+                    matricula: matricula,
+                    turma: turma,
                 }
             });
         }
@@ -62,10 +62,10 @@ const alunoController = {
             return res.render('alunos/cadastrar', {
                 mensagemErro: 'Esta matrícula já está cadastrada para outro aluno.',
                 dadosPrevios: {
-                    id,
-                    nome,
-                    matricula,
-                    turma
+                    id: id,
+                    nome: nome,
+                    matricula: matricula,
+                    turma: turma
                 }
             });
         }
@@ -82,6 +82,65 @@ const alunoController = {
         Aluno.salvar(novoAluno);
 
         // Redireciona para a listagem
+        res.redirect('/alunos');
+    },
+
+    // Função para exibir o formulário de edição com dados atuais
+    exibirFormularioEdicao: (req, res) => {
+        // Obétm o parâmetro id a partir da URL do pedido
+        const id = req.params.id;
+        // Pesquisa o aluno na base de dados pelo ID
+        const aluno = Aluno.buscarPorId(id);
+
+        // Verifica se o aluno não foi encontrado
+        if(!aluno){
+            // Redireciona o utilizador de volta à listagem
+            return res.redirect('/alunos');
+        }
+
+        // Renderiza a view de edição enviando o objeto aluno
+        res.render('alunos/editar', {
+            titulo: 'Editar Aluno',
+            aluno: aluno,
+        });
+    },
+
+    // Função para processar a atualização dos dados do aluno
+    atualizar:(req, res) => {
+        // Obtém o ID dos parâmetros contidos na URL
+        const id = req.params.id;
+        // Obtém o novo nome enviado no corpo do formulário
+        const nome = req.body.nome;
+        // Obtém a nova matrícula enviada no corpo
+        const matricula = req.body.matricula;
+        // Obtém a nova turma enviada no corpo
+        const turma = req.body.turma;
+
+        // Valida se os campos preenchidos não estão vazios
+        if(!nome || !matricula || !turma){
+            // Procura novamente os dados do aluno para manter a view
+            const aluno = Aluna.buscarPorId(id);
+            // Renderiza a tela de edição apresentando a mensagem de erro
+            return res.render('alunos/editar', {
+                mensagemErro: 'Preencha todos os campos para salvar.',
+                aluno: aluno
+            });
+        }
+
+        // Invoca a atualização dos dados na classe Model
+        Aluno.atualizar(id, nome, matricula, turma);
+
+        // Redireciona para a lista após guardar as alterações
+        res.redirect('/alunos');
+    },
+
+    // Função para remover um aluno da base de dados
+    eliminar: (req, res) => {
+        // Obém o ID do aluno vindo do parâmetro da rota
+        const id = req.params.id;
+        // Executa a remoção do aluno correspondente na Model
+        Aluno.eliminarPorId(id);
+        // Redireciona o navegador de volta para a lista de alunos
         res.redirect('/alunos');
     }
 };

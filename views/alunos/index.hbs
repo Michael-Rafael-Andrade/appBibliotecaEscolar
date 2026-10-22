@@ -7,22 +7,30 @@
             <th>Nome</th>
             <th>Matricula</th>
             <th>Turma</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         {{#each alunos}}
-            <tr>
-                <td>{{this.id}}</td>
-                <td>{{this.nome}}</td>
-                <td>{{this.matricula}}</td>
-                <td>{{this.turma}}</td>
-            </tr>
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.nome}}</td>
+            <td>{{this.matricula}}</td>
+            <td>{{this.turma}}</td>
+            <td>
+                <!-- Link que abre o formulário de edição do aluno -->
+                <a href="/alunos/editar/{{this.id}}">Editar</a>
+                <!-- Formulário individual para acionar a eliminação -->
+                <form action="/alunos/eliminar/{{this.id}}" method="POST" style="display:inline;">
+                    <!-- Botão para confirmar a remoção do registo -->
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
         {{else}}
-            <tr>
-                <td colspan="4">Nenhum aluno cadastrado.</td>
-            </tr>
+        <tr>
+            <td colspan="4">Nenhum aluno cadastrado.</td>
+        </tr>
         {{/each}}
     </tbody>
 </table>
-
-

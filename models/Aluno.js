@@ -34,6 +34,29 @@ class Aluno {
         );
         return alunoEncontrado;
     }
+    // Método estático para atualizar os dados de um aluno existente
+    static atualizar(id, nome, matricula, turma){
+        const aluno = Aluno.buscarPorId(id);
+        if(aluno){
+            aluno.nome = nome;
+            aluno.matricula = matricula;
+            aluno.turma = turma;
+        }
+        // Retorna o objeto aluno alterado
+        return aluno;
+    }
+
+    // Método estático para remover um aluno do array pelo ID
+    static eliminarPorId(id){
+        // Localiza o índice da posição do aluno no array
+        const indice = alunosDB.findIndex(
+            (a) => String(a.id) === String(id)
+        );
+        if(indice !== -1){
+            alunosDB.splice(indice, 1);
+            return true;
+        }
+    }
 }
 
 // Exporta a classe para os outros arquivos
